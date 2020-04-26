@@ -1,0 +1,26 @@
+{
+  "name": "zebex-z3100",
+  "version": "0.0.0",
+  "description": "A package to interface with the Zebex Z-3100 ccd scanner",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/AlexanderGranhof/zebex-z3100.git"
+  },
+  "keywords": [
+    "zebex",
+    "z-3100",
+    "z3100",
+    "ccd",
+    "scanner"
+  ],
+  "author": "Alexander Granhof",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/AlexanderGranhof/zebex-z3100/issues"
+  },
+  "homepage": "https://github.com/AlexanderGranhof/zebex-z3100#readme"
+}
