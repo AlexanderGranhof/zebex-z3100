@@ -1,9 +1,9 @@
 import Serialport, { PortInfo } from "serialport";
-import deviceInfo from "./data/z3100.json";
+import zebexDeviceInfo from "./data/z3100.json";
 import { Transform } from "stream";
 
 type Events = "data" | "readable" | "open" | "error";
-type Callback = (data: Buffer) => any;     
+type Callback = (data: Buffer) => any;
 
 interface options {
     baudRate?: number,
@@ -17,24 +17,29 @@ class Scanner {
     parser: Transform
 
     constructor({ baudRate, parser }: options = {}) {
-        this.baudRate = baudRate || deviceInfo.baudRate;
+        this.baudRate = baudRate || zebexDeviceInfo.baudRate;
         this.parser = parser || new Serialport.parsers.Readline({ delimiter: "\r\n" });;
     }
-    
+
     async connect() {
         // Find all connected USB devices
         const devices = await Serialport.list();
-        const { vendorId, productId } = deviceInfo;
+
+        const zebexProductId = zebexDeviceInfo.productId;
+        const zebexVendorId = zebexDeviceInfo.vendorId;
 
         // Find the usb matcing the z3100 vendor and product id
-        const scannerDevice = devices.find((device: PortInfo) => 
-            device.vendorId === vendorId && device.productId === productId
-        );
-        
+        const scannerDevice = devices.find((device: PortInfo) => {
+            const deviceVendorId = device.vendorId?.toLowerCase();
+            const deviceProductId = device.productId?.toLowerCase();
+
+            return deviceVendorId === zebexVendorId && deviceProductId === zebexProductId
+        });
+
         if (!scannerDevice) {
-            throw new Error(`unable to find device ${deviceInfo.vendorId}:${deviceInfo.productId}`)
+            throw new Error(`unable to find device ${zebexDeviceInfo.vendorId}:${zebexDeviceInfo.productId}`)
         }
-        
+
         this.device = scannerDevice;
         this.port = new Serialport(this.device.path, { autoOpen: true, baudRate: this.baudRate });
 
