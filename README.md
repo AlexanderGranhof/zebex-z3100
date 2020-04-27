@@ -2,7 +2,7 @@
 
 ### Description
 
-This package aims to make it simple to connect to the [zebex z3100 ccd scanner](https://www.zebex.com/en/product/index/10/Z-3100). The package uses serialport to communicate between the node process and the ccd scanner.
+This package aims to make it simple to connect to the [zebex z3100 ccd scanner](https://www.zebex.com/en/product/index/10/Z-3100). This package uses serialport package to communicate between the node process and the ccd scanner.
 
 ### Usage
 
@@ -27,5 +27,5 @@ The Zebex class can take a single parameter as an object with the follwing prope
 
 
 ### Resources
-[Official zebex page with datasheets, programming guide etc...](https://www.zebex.com/en/product/index/10/Z-3100)
-[Serialport API documentation](https://serialport.io/docs/guide-usage)
+- [Official zebex page with datasheets, programming guide etc...](https://www.zebex.com/en/product/index/10/Z-3100)
+- [Serialport API documentation](https://serialport.io/docs/guide-usage)
