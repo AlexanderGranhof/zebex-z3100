@@ -25,8 +25,8 @@ class Scanner {
         // Find all connected USB devices
         const devices = await Serialport.list();
 
-        const zebexProductId = zebexDeviceInfo.productId;
-        const zebexVendorId = zebexDeviceInfo.vendorId;
+        const zebexProductId = zebexDeviceInfo.productId.toLowerCase();
+        const zebexVendorId = zebexDeviceInfo.vendorId.toLowerCase();
 
         // Find the usb matcing the z3100 vendor and product id
         const scannerDevice = devices.find((device: PortInfo) => {
