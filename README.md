@@ -14,7 +14,11 @@ const Zebex = require("zebex-z3100");
 
     await scanner.connect();
 
-    scanner.on("data", data => console.log(data.toString()))
+    scanner.on("data", data => {
+        console.log(data.toString())
+
+        scanner.disconnect();
+    })
 })()
 ```
 
