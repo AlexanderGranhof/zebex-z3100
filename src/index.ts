@@ -6,22 +6,22 @@ type Events = "data" | "readable" | "open" | "error";
 type Callback = (data: Buffer) => any;
 
 interface options {
-    baudRate?: number,
-    parser?: Transform
+    baudRate?: number;
+    parser?: Transform;
 }
 
 class Scanner {
     baudRate: number;
     device?: PortInfo | null;
     port?: Serialport;
-    parser: Transform
+    parser: Transform;
 
     constructor({ baudRate, parser }: options = {}) {
         this.baudRate = baudRate || zebexDeviceInfo.baudRate;
         this.parser = parser || new Serialport.parsers.Readline({ delimiter: "\r\n" });;
     }
 
-    async connect() {
+    async connect(): Promise<void> {
         // Find all connected USB devices
         const devices = await Serialport.list();
 
@@ -33,11 +33,11 @@ class Scanner {
             const deviceVendorId = device.vendorId?.toLowerCase();
             const deviceProductId = device.productId?.toLowerCase();
 
-            return deviceVendorId === zebexVendorId && deviceProductId === zebexProductId
+            return deviceVendorId === zebexVendorId && deviceProductId === zebexProductId;
         });
 
         if (!scannerDevice) {
-            throw new Error(`unable to find device ${zebexDeviceInfo.vendorId}:${zebexDeviceInfo.productId}`)
+            throw new Error(`unable to find device ${zebexDeviceInfo.vendorId}:${zebexDeviceInfo.productId}`);
         }
 
         this.device = scannerDevice;
@@ -47,12 +47,22 @@ class Scanner {
         this.port.pipe(this.parser);
     }
 
-    on(event: Events, callback: Callback) {
+    on(event: Events, callback: Callback): void {
         if (!this.port) {
-            throw new Error("device has not connected yet")
+            throw new Error("device has not connected yet");
         }
 
         this.port.on(event, callback);
+    }
+
+    async disconnect(): Promise<void> {
+        return new Promise((resolve, reject) => {
+            if (!this.port) {
+                return reject(new Error("device has not connected yet"));
+            }
+
+            this.port.close(err => err ? reject(err) : resolve());
+        });
     }
 }
 
