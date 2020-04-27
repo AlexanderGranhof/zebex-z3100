@@ -1,6 +1,6 @@
 {
   "name": "zebex-z3100",
-  "version": "0.0.0",
+  "version": "1.0.0",
   "description": "A simple package that allows you to easily connect to a Zebex z3100 ccd scanner",
   "main": "dist/index.js",
   "scripts": {
