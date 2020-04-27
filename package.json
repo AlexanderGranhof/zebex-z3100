@@ -2,10 +2,14 @@
   "name": "zebex-z3100",
   "version": "0.0.0",
   "description": "A package to interface with the Zebex Z-3100 ccd scanner",
-  "main": "index.js",
+  "main": "dist/index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "build": "tsc",
+    "watch": "tsc -w"
   },
+  "files": [
+    "dist/"
+  ],
   "repository": {
     "type": "git",
     "url": "git+https://github.com/AlexanderGranhof/zebex-z3100.git"
@@ -22,5 +26,13 @@
   "bugs": {
     "url": "https://github.com/AlexanderGranhof/zebex-z3100/issues"
   },
-  "homepage": "https://github.com/AlexanderGranhof/zebex-z3100#readme"
+  "homepage": "https://github.com/AlexanderGranhof/zebex-z3100#readme",
+  "dependencies": {
+    "serialport": "^8.0.7"
+  },
+  "devDependencies": {
+    "@types/node": "^13.13.4",
+    "@types/serialport": "^8.0.0",
+    "typescript": "^3.8.3"
+  }
 }
